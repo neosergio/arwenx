@@ -5,4 +5,5 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 	url(r'^administrar/', include(admin.site.urls)),
+	url(r'^instancia/nueva/', 'docswarehouse.views.nueva_instancia'),
 )
