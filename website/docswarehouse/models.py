@@ -37,7 +37,7 @@ class Resolucion(models.Model):
 	categoria = models.ForeignKey(Categoria)
 	facultad = models.ForeignKey(Facultad, null=True, blank=True)
 	interesado = models.ForeignKey(Interesado)
-	registro = models.ForeingKey(User)
+	registro = models.ForeignKey(User)
 
 	def __unicode__(self):
 		return self.codigo_resolucion
