@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block encabezado %} Agregar una nueva resolución {% endblock encabezado %}
+{% block contenido %}
+<p><a href="/interesados/nuevo/">Interesados<span>Agregar personas</span></a></p>
+<form method='post'>{% csrf_token %}
+{{form}}
+<p><input type='submit' value='enviar'>
+</form>	
+{% endblock contenido %}

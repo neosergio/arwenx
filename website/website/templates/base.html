@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+	<meta charset='utf-8'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	<title>Secretaria general - {% block title_html %}{% endblock title_html %}</title>
+	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/base.css">
+	<script type="text/javascript" src='{{ STATIC_URL }}js/base.js'></script>
+</head>
+<body>
+	<header>
+		<h1>Secretaría General</h1>
+		<h2>{% block encabezado %}{% endblock encabezado %}</h2>
+		<p> Hola {{ user.username }} </p>
+		<nav>
+			<ul>
+				<li><a href="/">Inicio</a></li>
+				<li><a href="/salir">Cerrar sesion</a></li>
+			</ul>	
+		</nav>
+	</header> 
+	<section>
+		{% block contenido %}{% endblock contenido %}
+	</section>
+	<footer>
+		<p>&copy; UNCP 2012. Consultas a: <a href='http://ayudaf1.com' title='Ayuda F1'>Ayudaf1.com</a>
+	</footer>
+</body>
+</html>
