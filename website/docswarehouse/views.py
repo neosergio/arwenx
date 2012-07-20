@@ -1,6 +1,6 @@
 from docswarehouse.models import Instancia, Resolucion, Interesado
 from docswarehouse.forms import InstanciaForm, ResolucionForm, InteresadoForm
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.contrib.auth.forms import AuthenticationForm
@@ -82,3 +82,8 @@ def nueva_resolucion(request):
 	else:
 		formulario = ResolucionForm()
 	return render_to_response('nueva_resolucion.html',{'form':formulario}, context_instance=RequestContext(request))
+
+@login_required(login_url=login_url_variable)
+def detalle_resolucion(request, id_resolucion):
+	resolucion = get_object_or_404(Resolucion, pk=id_resolucion)
+	return render_to_response('detalle_resolucion.html', {'resolucion':resolucion}, context_instance=RequestContext(request))

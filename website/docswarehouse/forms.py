@@ -14,4 +14,4 @@ class InstanciaForm(ModelForm):
 class ResolucionForm(ModelForm):
 	class Meta:
 		model = Resolucion
-		exclude = ('registro')
+		exclude = ('registro', 'interesado')
