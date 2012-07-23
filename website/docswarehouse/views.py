@@ -40,6 +40,43 @@ def salir(request):
 	return HttpResponseRedirect('/')
 
 @login_required(login_url=login_url_variable)
+def nueva_resolucion(request):
+	if request.method == 'POST':
+		formulario = ResolucionForm(request.POST)
+		if formulario.is_valid():
+			resolucion_previo = formulario.save(commit=False)
+			resolucion_previo.registro = request.user
+			resolucion_previo.save()
+			redireccion = "/resolucion/%i" % (resolucion_previo.id)
+			return HttpResponseRedirect(redireccion)
+	else:
+		formulario = ResolucionForm()
+	return render_to_response('nueva_resolucion.html',{'form':formulario}, context_instance=RequestContext(request))
+
+@login_required(login_url=login_url_variable)
+def detalle_resolucion(request, id_resolucion):
+	resolucion = get_object_or_404(Resolucion, pk=id_resolucion)
+	return render_to_response('detalle_resolucion.html', {'resolucion':resolucion}, context_instance=RequestContext(request))
+
+
+@login_required(login_url=login_url_variable)
+def nuevo_interesado(request, id_resolucion):
+	if request.method == 'POST':
+		formulario = InteresadoForm(request.POST)
+		resolucion = Resolucion(pk=id_resolucion)
+		if formulario.is_valid():
+			interesado_previo = formulario.save(commit=False)
+			interesado_previo.registro = request.user
+			interesado_previo.save()
+			resolucion.interesado = interesado_previo.id
+			resolucion.save()
+			#Resolucion(pk=id_resolucion, interesado=interesado_previo.id).save()
+			return HttpResponseRedirect('/interesados/')
+	else:
+		formulario = InteresadoForm()
+	return render_to_response('nuevo_interesado.html',{'form':formulario},context_instance=RequestContext(request))
+
+@login_required(login_url=login_url_variable)
 def nueva_instancia(request):
 	if request.method == 'POST':
 		formulario = InstanciaForm(request.POST)
@@ -53,37 +90,6 @@ def nueva_instancia(request):
 	return render_to_response('nueva_instancia.html',{'form':formulario},context_instance=RequestContext(request))
 
 @login_required(login_url=login_url_variable)
-def nuevo_interesado(request):
-	if request.method == 'POST':
-		formulario = InteresadoForm(request.POST)
-		if formulario.is_valid():
-			interesado_previo = formulario.save(commit=False)
-			interesado_previo.registro = request.user
-			interesado_previo.save()
-			return HttpResponseRedirect('/interesados/')
-	else:
-		formulario = InteresadoForm()
-	return render_to_response('nuevo_interesado.html',{'form':formulario},context_instance=RequestContext(request))
-
-@login_required(login_url=login_url_variable)
 def interesados(request):
 	datos = Interesado.objects.all()
 	return render_to_response('interesados.html',{'datos':datos},context_instance=RequestContext(request))
-
-@login_required(login_url=login_url_variable)
-def nueva_resolucion(request):
-	if request.method == 'POST':
-		formulario = ResolucionForm(request.POST)
-		if formulario.is_valid():
-			resolucion_previo = formulario.save(commit=False)
-			resolucion_previo.registro = request.user
-			resolucion_previo.save()
-			return HttpResponseRedirect('/')
-	else:
-		formulario = ResolucionForm()
-	return render_to_response('nueva_resolucion.html',{'form':formulario}, context_instance=RequestContext(request))
-
-@login_required(login_url=login_url_variable)
-def detalle_resolucion(request, id_resolucion):
-	resolucion = get_object_or_404(Resolucion, pk=id_resolucion)
-	return render_to_response('detalle_resolucion.html', {'resolucion':resolucion}, context_instance=RequestContext(request))
