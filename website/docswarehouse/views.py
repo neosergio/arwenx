@@ -63,15 +63,16 @@ def detalle_resolucion(request, id_resolucion):
 def nuevo_interesado(request, id_resolucion):
 	if request.method == 'POST':
 		formulario = InteresadoForm(request.POST)
-		resolucion = Resolucion(pk=id_resolucion)
+		resolucion = Resolucion.objects.get(pk=id_resolucion)
 		if formulario.is_valid():
-			interesado_previo = formulario.save(commit=False)
-			interesado_previo.registro = request.user
-			interesado_previo.save()
-			resolucion.interesado = interesado_previo.id
-			resolucion.save()
-			#Resolucion(pk=id_resolucion, interesado=interesado_previo.id).save()
-			return HttpResponseRedirect('/interesados/')
+			nombre_interesado = formulario.cleaned_data['nombre']
+			try:
+				interesado = Interesado.objects.get(nombre__exact=nombre_interesado)
+			except:
+				interesado = Interesado.objects.create(nombre=nombre_interesado, registro=request.user)
+			resolucion.interesado.add(interesado)
+			redireccion = '/resolucion/'+id_resolucion
+			return HttpResponseRedirect(redireccion)
 	else:
 		formulario = InteresadoForm()
 	return render_to_response('nuevo_interesado.html',{'form':formulario},context_instance=RequestContext(request))

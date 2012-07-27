@@ -1,10 +1,9 @@
 from docswarehouse.models import Instancia, Resolucion, Interesado
 from django.forms import ModelForm
+from django import forms
 
-class InteresadoForm(ModelForm):
-	class Meta:
-		model = Interesado
-		exclude = ('registro')
+class InteresadoForm(forms.Form):
+	nombre = forms.CharField(label='Nombre')
 
 class InstanciaForm(ModelForm):
 	class Meta:

@@ -23,7 +23,7 @@ class Facultad(models.Model):
 		return self.nombre
 
 class Interesado(models.Model):
-	nombre = models.CharField(max_length=255)
+	nombre = models.CharField(max_length=255, unique=True)
 	registro = models.ForeignKey(User)
 
 	def __unicode__(self):
