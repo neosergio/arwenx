@@ -1,0 +1,4 @@
+{% for persona in resolucion.interesado.all %}
+	<li>{{ persona }} <a href='confirmar/{{persona.pk}}'>Quitar</a></li>
+{% endfor %}
+<p><a href="/resolucion/{{resolucion.id}}">Volver</a></p>

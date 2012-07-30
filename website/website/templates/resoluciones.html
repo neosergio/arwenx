@@ -1,0 +1,14 @@
+<p><a href='/buscar'>Busqueda personalizada</a></p>
+<table>
+	<tr><th>Código de resolución</th><th>Asunto</th><th>Fecha de emisión</th>
+{% for resolucion in datos %}
+	<tr>
+		<td>{{ resolucion.codigo_resolucion }}</td>
+		<td>{{ resolucion.asunto }}</td> 
+		<td>{{ resolucion.fecha_emision }}</td>
+		<td><a href='/resolucion/{{ resolucion.id }}'>Ver detalles</a></td>
+	</tr>
+{% empty %}
+	<tr><th>No hay resoluciones registradas.</th></tr>
+{% endfor %}
+</table>

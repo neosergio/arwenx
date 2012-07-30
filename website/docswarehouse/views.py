@@ -1,5 +1,5 @@
 from docswarehouse.models import Instancia, Resolucion, Interesado
-from docswarehouse.forms import InstanciaForm, ResolucionForm, InteresadoForm
+from docswarehouse.forms import InstanciaForm, ResolucionForm, InteresadoForm, BuscarForm
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
@@ -76,6 +76,29 @@ def nuevo_interesado(request, id_resolucion):
 	else:
 		formulario = InteresadoForm()
 	return render_to_response('nuevo_interesado.html',{'form':formulario},context_instance=RequestContext(request))
+
+@login_required(login_url=login_url_variable)
+def quitar_interesado(request, id_resolucion):
+	resolucion = get_object_or_404(Resolucion, pk=id_resolucion)
+	return render_to_response('quitar_interesado.html',{'resolucion':resolucion}, context_instance=RequestContext(request))
+
+@login_required(login_url=login_url_variable)
+def confirmar_quitar_interesado(request, id_resolucion, id_interesado):
+	resolucion = get_object_or_404(Resolucion, pk=id_resolucion)
+	interesado = get_object_or_404(Interesado, pk=id_interesado)
+	resolucion.interesado.remove(interesado)
+	redireccion = '/resolucion/' + str(id_resolucion) + '/quitar/interesado'
+	return HttpResponseRedirect(redireccion)
+
+@login_required(login_url=login_url_variable)
+def resoluciones(request):
+	datos = Resolucion.objects.all()
+	return render_to_response('resoluciones.html',{'datos':datos},context_instance=RequestContext(request))
+
+@login_required(login_url=login_url_variable)
+def buscar(request):
+	form = BuscarForm()
+	return render_to_response('buscar.html',{'form':form},context_instance=RequestContext(request))
 
 @login_required(login_url=login_url_variable)
 def nueva_instancia(request):

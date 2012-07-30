@@ -8,6 +8,11 @@
 </ul>
 <p>Interesados: </p>
 <ul>
-	<li>xxxxx</li>
+	{% for persona in resolucion.interesado.all %}
+	<li>{{ persona }}</li>
+	{% empty %}
+	<li>La resolución aún no tiene interesados registrados.</li>
+	{% endfor %}
 </ul>
 <p><a href='agregar/interesado'>Agregar<span>Interesados</span></a></p>
+<p><a href='quitar/interesado'>Quitar<span>Interesados</span></a></p>
