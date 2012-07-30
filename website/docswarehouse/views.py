@@ -96,7 +96,7 @@ def resoluciones(request):
 	return render_to_response('resoluciones.html',{'datos':datos},context_instance=RequestContext(request))
 
 @login_required(login_url=login_url_variable)
-def buscar(request):
+def buscar_resolucion(request):
 	form = BuscarForm()
 	return render_to_response('buscar.html',{'form':form},context_instance=RequestContext(request))
 
