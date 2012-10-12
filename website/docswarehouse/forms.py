@@ -20,8 +20,8 @@ class BuscarForm(forms.Form):
 	codigo = forms.CharField(label='Código de resolución', widget=forms.TextInput(attrs={'placeholder':'ej. 01264-R-2012'}))
 	fecha = forms.DateField(label='Fecha de emisión')
 	asunto = forms.CharField(widget=forms.Textarea(attrs={'placeholder':'Algún fragmento del asunto'}))
-	instancia = forms.ModelChoiceField(queryset=Instancia.objects.all())
-	categoria = forms.ModelChoiceField(queryset=Categoria.objects.all())
-	facultad = forms.ModelChoiceField(queryset=Facultad.objects.all())
-	interesado = forms.ModelChoiceField(queryset=Interesado.objects.all())
+	instancia = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Escribe la instancia'}))
+	categoria = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Escribe la categoría'}))
+	facultad = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Escribe la facultad'}))
+	interesado = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Escribe el nombre del interesado', 'list':'testlist'}))
 

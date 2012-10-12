@@ -97,6 +97,7 @@ def resoluciones(request):
 
 @login_required(login_url=login_url_variable)
 def buscar_resolucion(request):
+	if request.method == 
 	form = BuscarForm()
 	return render_to_response('buscar.html',{'form':form},context_instance=RequestContext(request))
 
