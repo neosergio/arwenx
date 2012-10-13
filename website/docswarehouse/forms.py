@@ -17,11 +17,16 @@ class ResolucionForm(ModelForm):
 		exclude = ('registro', 'interesado')
 
 class BuscarForm(forms.Form):
-	codigo = forms.CharField(label='Código de resolución', widget=forms.TextInput(attrs={'placeholder':'ej. 01264-R-2012'}))
-	fecha = forms.DateField(label='Fecha de emisión')
-	asunto = forms.CharField(widget=forms.Textarea(attrs={'placeholder':'Algún fragmento del asunto'}))
-	instancia = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Escribe la instancia'}))
-	categoria = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Escribe la categoría'}))
-	facultad = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Escribe la facultad'}))
-	interesado = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Escribe el nombre del interesado', 'list':'testlist'}))
+	codigo = forms.CharField(
+		label='Código de resolución', 
+		widget=forms.TextInput(attrs={'placeholder':'ej. 01264-R-2012'}),
+		required=False)
+	fecha = forms.DateField(label='Fecha de emisión', required=False)
+	asunto = forms.CharField(widget=forms.Textarea(attrs={'placeholder':'Algún fragmento del asunto'}), required=False)
+	instancia = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Escribe la instancia'}), required=False)
+	categoria = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Escribe la categoría'}), required=False)
+	facultad = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Escribe la facultad'}), required=False)
+	interesado = forms.CharField(
+		widget=forms.TextInput(attrs={'placeholder':'Escribe el nombre del interesado', 'list':'testlist'}),
+		required=False)
 
