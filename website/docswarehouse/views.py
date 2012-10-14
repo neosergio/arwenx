@@ -100,8 +100,14 @@ def buscar_resolucion(request):
     if request.method == 'POST':
         form = BuscarForm(request.POST)
         if form.is_valid():
-            print "ok"
+            codigo = form.cleaned_data['codigo']
+            fecha = form.cleaned_data['fecha']
+            
     else:
+        instancias = Instancia.objects.all()
+        categorias = Categoria.objects.all()
+        facultades = Facultad.objects.all()
+        interesados = Interesado.objects.all()
         form = BuscarForm()
     return render_to_response('buscar.html',{'form':form},context_instance=RequestContext(request))
 
