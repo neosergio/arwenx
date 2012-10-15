@@ -104,6 +104,7 @@ def buscar_resolucion(request):
     facultades = Facultad.objects.all()
     interesados = Interesado.objects.all()
     form = BuscarForm()
+    resoluciones_resultantes = ''
     if request.method == 'POST':
         form = BuscarForm(request.POST)
         if form.is_valid():
@@ -140,7 +141,9 @@ def buscar_resolucion(request):
                 instancia_consulta, categoria_consulta, facultad_consulta, interesado_consulta)
     else:
         print 'else'
-    return render_to_response('buscar.html',{'form':form, 'resoluciones': resoluciones_resultantes},context_instance=RequestContext(request))
+    return render_to_response('buscar.html',
+        {'form':form, 'resoluciones': resoluciones_resultantes, 'instancias':instancias, 'categorias':categorias, 'facultades':facultades, 'interesados':interesados},
+        context_instance=RequestContext(request))
 
 @login_required(login_url=login_url_variable)
 def nueva_instancia(request):

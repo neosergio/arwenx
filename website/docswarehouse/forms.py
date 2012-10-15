@@ -23,10 +23,8 @@ class BuscarForm(forms.Form):
 		required=False)
 	fecha = forms.DateField(label='Fecha de emisión', required=False)
 	asunto = forms.CharField(widget=forms.Textarea(attrs={'placeholder':'Algún fragmento del asunto'}), required=False)
-	instancia = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Escribe la instancia'}), required=False)
-	categoria = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Escribe la categoría'}), required=False)
-	facultad = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Escribe la facultad'}), required=False)
-	interesado = forms.CharField(
-		widget=forms.TextInput(attrs={'placeholder':'Escribe el nombre del interesado', 'list':'testlist'}),
-		required=False)
+	instancia = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Escribe la instancia', 'list':'lista_instancias'}), required=False)
+	categoria = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Escribe la categoría', 'list':'lista_categorias'}), required=False)
+	facultad = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Escribe la facultad', 'list':'lista_facultades'}), required=False)
+	interesado = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Escribe el nombre del interesado', 'list':'lista_interesados'}),required=False)
 

@@ -1,11 +1,22 @@
 <form action="" method="post">{% csrf_token %}
 {{ form }}
-<datalist id='testlist'>
-	<option value="foo">
-	<option value="bar">
-	<option value="meh">
-	<option value="mad">
-</datalist>
+<datalist id='lista_instancias'> {% for instancia in instancias %} <option value="{{ instancia }}"> {% endfor %} </datalist>
+<datalist id='lista_categorias'> {% for categoria in categorias %} <option value="{{ categoria }}"> {% endfor %} </datalist>
+<datalist id='lista_facultades'> {% for facultad in facultades %} <option value="{{ facultad }}"> {% endfor %} </datalist>
+<datalist id='lista_interesados'> {% for interesado in interesados %} <option value="{{ interesado }}"> {% endfor %} </datalist>
 <input type="submit" value="Consultar">
 </form>
-{{resoluciones}}
+
+<table>
+	<tr><th>Código de resolución</th><th>Asunto</th><th>Fecha de emisión</th>
+{% for resolucion in resoluciones %}
+	<tr>
+		<td>{{ resolucion.codigo_resolucion }}</td>
+		<td>{{ resolucion.asunto }}</td> 
+		<td>{{ resolucion.fecha_emision }}</td>
+		<td><a href='/resolucion/{{ resolucion.id }}'>Ver detalles</a></td>
+	</tr>
+{% empty %}
+	<tr><th colspan=3>No hay resoluciones registradas que coincidan con la busqueda.</th></tr>
+{% endfor %}
+</table>
