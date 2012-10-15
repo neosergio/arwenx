@@ -107,13 +107,13 @@ def buscar_resolucion(request):
     if request.method == 'POST':
         form = BuscarForm(request.POST)
         if form.is_valid():
-            asunto_buscado = form.cleaned_data['asunto']
-            instancia_buscada = form.cleaned_data['instancia']
-            categoria_buscada = form.cleaned_data['categoria']
-            facultad_buscada = form.cleaned_data['facultad']
-            interesado_buscado = form.cleaned_data['interesado']
-            codigo_consulta = Q(codigo_resolucion = '')
-            fecha_consulta = Q(fecha_emision = '')
+            codigo_consulta = ~Q(codigo_resolucion = '')
+            fecha_consulta = ~Q(fecha_emision__isnull = True)
+            asunto_consulta = ~Q(asunto = '')
+            instancia_consulta = ~Q(instancia__isnull = True)
+            categoria_consulta = ~Q(categoria__isnull = True)
+            facultad_consulta = ~Q(facultad__isnull = True)
+            interesado_consulta = ~Q(interesado__isnull = True)
             for k,v in request.POST.items():
                 if k == 'codigo':
                     if v != '':
@@ -121,11 +121,26 @@ def buscar_resolucion(request):
                 if k == 'fecha':
                     if v != '':
                         fecha_consulta = Q(fecha_emision = form.cleaned_data['fecha'])
-            resoluciones_resultantes = Resolucion.objects.filter(codigo_consulta, fecha_consulta)
-            print resoluciones_resultantes
+                if k == 'asunto':
+                    if v != '':
+                        asunto_consulta = Q(asunto__icontains = form.cleaned_data['asunto'])
+                if k == 'instancia':
+                    if v != '':
+                        instancia_consulta = Q(instancia = get_object_or_404(Instancia, nombre__iexact = form.cleaned_data['instancia']))
+                if k == 'categoria':
+                    if v != '':
+                        categoria_consulta = Q(categoria = get_object_or_404(Categoria, nombre__iexact = form.cleaned_data['categoria']))
+                if k == 'facultad':
+                    if v != '':
+                        facultad_consulta = Q(facultad = get_object_or_404(Facultad, nombre__iexact = form.cleaned_data['facultad']))
+                if k == 'interesado':
+                    if v != '':
+                        interesado_consulta = Q(interesado = Interesado.objects.filter(nombre__icontains = form.cleaned_data['interesado']))
+            resoluciones_resultantes = Resolucion.objects.filter(codigo_consulta, fecha_consulta, asunto_consulta, 
+                instancia_consulta, categoria_consulta, facultad_consulta, interesado_consulta)
     else:
         print 'else'
-    return render_to_response('buscar.html',{'form':form},context_instance=RequestContext(request))
+    return render_to_response('buscar.html',{'form':form, 'resoluciones': resoluciones_resultantes},context_instance=RequestContext(request))
 
 @login_required(login_url=login_url_variable)
 def nueva_instancia(request):
