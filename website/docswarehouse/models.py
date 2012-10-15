@@ -50,7 +50,6 @@ class Resolucion(models.Model):
 	facultad = models.ForeignKey(Facultad, null=True, blank=True)
 	interesado = models.ManyToManyField(Interesado, null=True, blank=True)
 	registro = models.ForeignKey(User)
-
 	class Meta:
 		ordering = ['-codigo_resolucion']
 

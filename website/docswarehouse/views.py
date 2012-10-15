@@ -1,4 +1,4 @@
-from docswarehouse.models import Instancia, Resolucion, Interesado
+from docswarehouse.models import Instancia, Resolucion, Interesado, Categoria, Facultad
 from docswarehouse.forms import InstanciaForm, ResolucionForm, InteresadoForm, BuscarForm
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
@@ -6,6 +6,8 @@ from django.template import RequestContext
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
+from django.db.models import Q
+import itertools
 
 login_url_variable = '/ingresar'
 
@@ -97,18 +99,32 @@ def resoluciones(request):
 
 @login_required(login_url=login_url_variable)
 def buscar_resolucion(request):
+    instancias = Instancia.objects.all()
+    categorias = Categoria.objects.all()
+    facultades = Facultad.objects.all()
+    interesados = Interesado.objects.all()
+    form = BuscarForm()
     if request.method == 'POST':
         form = BuscarForm(request.POST)
         if form.is_valid():
-            codigo = form.cleaned_data['codigo']
-            fecha = form.cleaned_data['fecha']
-            
+            asunto_buscado = form.cleaned_data['asunto']
+            instancia_buscada = form.cleaned_data['instancia']
+            categoria_buscada = form.cleaned_data['categoria']
+            facultad_buscada = form.cleaned_data['facultad']
+            interesado_buscado = form.cleaned_data['interesado']
+            codigo_consulta = Q(codigo_resolucion = '')
+            fecha_consulta = Q(fecha_emision = '')
+            for k,v in request.POST.items():
+                if k == 'codigo':
+                    if v != '':
+                        codigo_consulta = Q(codigo_resolucion = form.cleaned_data['codigo'])
+                if k == 'fecha':
+                    if v != '':
+                        fecha_consulta = Q(fecha_emision = form.cleaned_data['fecha'])
+            resoluciones_resultantes = Resolucion.objects.filter(codigo_consulta, fecha_consulta)
+            print resoluciones_resultantes
     else:
-        instancias = Instancia.objects.all()
-        categorias = Categoria.objects.all()
-        facultades = Facultad.objects.all()
-        interesados = Interesado.objects.all()
-        form = BuscarForm()
+        print 'else'
     return render_to_response('buscar.html',{'form':form},context_instance=RequestContext(request))
 
 @login_required(login_url=login_url_variable)
