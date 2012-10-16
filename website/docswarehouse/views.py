@@ -133,12 +133,15 @@ def buscar_resolucion(request):
                         categoria_consulta = Q(categoria = get_object_or_404(Categoria, nombre__iexact = form.cleaned_data['categoria']))
                 if k == 'facultad':
                     if v != '':
+                        print v
                         facultad_consulta = Q(facultad = get_object_or_404(Facultad, nombre__iexact = form.cleaned_data['facultad']))
                 if k == 'interesado':
                     if v != '':
+                        print v
                         interesado_consulta = Q(interesado = Interesado.objects.filter(nombre__icontains = form.cleaned_data['interesado']))
             resoluciones_resultantes = Resolucion.objects.filter(codigo_consulta, fecha_consulta, asunto_consulta, 
                 instancia_consulta, categoria_consulta, facultad_consulta, interesado_consulta)
+            print resoluciones_resultantes
     else:
         print 'else'
     return render_to_response('buscar.html',

@@ -43,8 +43,8 @@ class Interesado(models.Model):
 
 class Resolucion(models.Model):
 	codigo_resolucion = models.CharField(max_length=13)
-	fecha_emision = models.DateField()
-	asunto = models.TextField()
+	fecha_emision = models.DateField(null=True, blank=True)
+	asunto = models.TextField(null=True, blank=True)
 	instancia = models.ForeignKey(Instancia)
 	categoria = models.ForeignKey(Categoria)
 	facultad = models.ForeignKey(Facultad, null=True, blank=True)

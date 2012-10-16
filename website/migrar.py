@@ -16,8 +16,9 @@ from docswarehouse.models import Facultad, Interesado
 from django.contrib.auth.models import User
 print "Empezando la migracion"
 
-lector_registros = csv.reader(open(csv_datos), delimiter=',', quotechar = '\'')
+lector_registros = csv.reader(open(csv_datos), delimiter=';', quotechar = '`')
 usuario = User.objects.get(pk=1)
+contador = 0
 for elemento in lector_registros:
     if elemento[0].startswith('0'):
         codigo_migrar = elemento[0]
@@ -27,6 +28,9 @@ for elemento in lector_registros:
         instancia_migrar, ok = Instancia.objects.get_or_create(nombre=elemento[4], registro=usuario)
         categoria_migrar, ok = Categoria.objects.get_or_create(nombre=elemento[5], registro=usuario)
         facultad_migrar, ok = Facultad.objects.get_or_create(nombre=elemento[6], registro=usuario)
-        Resolucion.objects.create(codigo_resolucion = codigo_migrar, fecha_emision = fecha_migrar,
+        contador += 1
+        print contador
+        resolucion_ok, ok = Resolucion.objects.get_or_create(codigo_resolucion = codigo_migrar, fecha_emision = fecha_migrar,
             asunto = asunto_migrar, instancia = instancia_migrar, categoria = categoria_migrar,
             facultad = facultad_migrar, registro = usuario)
+        resolucion_ok.interesado.add(interesado_migrar)
