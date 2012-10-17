@@ -51,7 +51,7 @@ class Resolucion(models.Model):
 	interesado = models.ManyToManyField(Interesado, null=True, blank=True)
 	registro = models.ForeignKey(User)
 	class Meta:
-		ordering = ['-codigo_resolucion']
+		ordering = ['-fecha_emision']
 
 	def __unicode__(self):
 		return self.codigo_resolucion

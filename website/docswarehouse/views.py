@@ -7,7 +7,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
 from django.db.models import Q
-import itertools
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 login_url_variable = '/ingresar'
 
@@ -95,7 +95,15 @@ def confirmar_quitar_interesado(request, id_resolucion, id_interesado):
 @login_required(login_url=login_url_variable)
 def resoluciones(request):
     datos = Resolucion.objects.all()
-    return render_to_response('resoluciones.html',{'datos':datos},context_instance=RequestContext(request))
+    paginator = Paginator(datos, 500)
+    page = request.GET.get('page')
+    try:
+        resoluciones = paginator.page(page)
+    except PageNotAnInteger:
+        resoluciones = paginator.page(1)
+    except EmptyPage:
+        resoluciones = paginator.page(paginator.num_pages)
+    return render_to_response('resoluciones.html',{'resoluciones':resoluciones},context_instance=RequestContext(request))
 
 @login_required(login_url=login_url_variable)
 def buscar_resolucion(request):
@@ -138,7 +146,7 @@ def buscar_resolucion(request):
                 if k == 'interesado':
                     if v != '':
                         print v
-                        interesado_consulta = Q(interesado = Interesado.objects.filter(nombre__icontains = form.cleaned_data['interesado']))
+                        interesado_consulta = Q(interesado__nombre__icontains = form.cleaned_data['interesado'])
             resoluciones_resultantes = Resolucion.objects.filter(codigo_consulta, fecha_consulta, asunto_consulta, 
                 instancia_consulta, categoria_consulta, facultad_consulta, interesado_consulta)
             print resoluciones_resultantes
