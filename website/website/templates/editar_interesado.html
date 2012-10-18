@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block encabezado %} Editar interesado {% endblock encabezado %}
+{% block contenido %}
+<form method='post'>{% csrf_token %}
+{{form}}
+<p><input type='submit' value='Confirmar'>
+<a href="/interesados/">Cancelars</a>
+</form>
+{% endblock contenido %}

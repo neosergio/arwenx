@@ -1,5 +1,20 @@
-<p><a href="nuevo">Agregar interesado</a></p>
-<p><a href="/resoluciones/nueva">Agregar resolución</a></p>
-{% for interesado in datos  %}
-	<p>{{ interesado.nombre }}</p>
-{% endfor %}
+<table>
+    <thead>
+        <tr><th>#</th><th>Nombre</th><th></th></tr>
+    </thead>
+    <tbody>
+        {% for interesado in interesados  %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ interesado.nombre }}</td>
+            <td> <a href="editar/{{ interesado.pk }}">Editar</a> </td>
+        </tr>
+        {% empty %}
+            <tr><td colspan='3'>No hay interesados registrados</td></tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr><th>#</th><th>Nombre</th><th></th></tr>
+    </tfoot>
+</table>
+    

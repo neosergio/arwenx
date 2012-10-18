@@ -1,5 +1,6 @@
+# -*- coding: utf8 -*-
 from docswarehouse.models import Instancia, Resolucion, Interesado, Categoria, Facultad
-from docswarehouse.forms import InstanciaForm, ResolucionForm, InteresadoForm, BuscarForm
+from docswarehouse.forms import InstanciaForm, ResolucionForm, InteresadoForm, BuscarForm, EditarInteresadoForm
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
@@ -107,8 +108,9 @@ def resoluciones(request):
 
 @login_required(login_url=login_url_variable)
 def editar_resolucion(request, id_resolucion):
+    dato = get_object_or_404(Resolucion, pk=id_resolucion)
     if request.method == 'POST':
-        formulario = ResolucionForm(request.POST)
+        formulario = ResolucionForm(request.POST, instance=dato)
         if formulario.is_valid():
             resolucion_previo = formulario.save(commit=False)
             resolucion_previo.registro = request.user
@@ -116,7 +118,6 @@ def editar_resolucion(request, id_resolucion):
             redireccion = "/resolucion/%i" % (resolucion_previo.id)
             return HttpResponseRedirect(redireccion)
     else:
-        dato = get_object_or_404(Resolucion, pk=id_resolucion)
         formulario = ResolucionForm(instance=dato)
     return render_to_response('editar_resolucion.html',{'form':formulario, 'id':dato.pk}, context_instance=RequestContext(request))
 
@@ -172,6 +173,10 @@ def buscar_resolucion(request):
         context_instance=RequestContext(request))
 
 @login_required(login_url=login_url_variable)
+def instancias(request):
+    return render_to_response('instancias.html', context_instance=RequestContext(request))
+
+@login_required(login_url=login_url_variable)
 def nueva_instancia(request):
     if request.method == 'POST':
         formulario = InstanciaForm(request.POST)
@@ -187,4 +192,19 @@ def nueva_instancia(request):
 @login_required(login_url=login_url_variable)
 def interesados(request):
     datos = Interesado.objects.all()
-    return render_to_response('interesados.html',{'datos':datos},context_instance=RequestContext(request))
+    return render_to_response('interesados.html',{'interesados':datos},context_instance=RequestContext(request))
+
+@login_required(login_url=login_url_variable)
+def editar_interesado(request, id_interesado):
+    dato = get_object_or_404(Interesado, pk=id_interesado)
+    if request.method == 'POST':
+        formulario = EditarInteresadoForm(request.POST, instance=dato)
+        if formulario.is_valid():
+            interesado_previo = formulario.save(commit=False)
+            interesado_previo.registro = request.user
+            interesado_previo.save()
+            redireccion = "/interesados/"
+            return HttpResponseRedirect(redireccion)
+    else:
+        formulario = EditarInteresadoForm(instance=dato)
+    return render_to_response('editar_interesado.html',{'form':formulario, 'id':dato.pk}, context_instance=RequestContext(request))
