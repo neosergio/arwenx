@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 from docswarehouse.models import Instancia, Resolucion, Interesado, Categoria, Facultad
-from docswarehouse.forms import InstanciaForm, ResolucionForm, InteresadoForm, BuscarForm, EditarInteresadoForm
+from docswarehouse.forms import InstanciaForm, ResolucionForm, InteresadoForm, BuscarForm, EditarInteresadoForm, CategoriaForm
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
@@ -64,6 +64,7 @@ def detalle_resolucion(request, id_resolucion):
 
 @login_required(login_url=login_url_variable)
 def nuevo_interesado(request, id_resolucion):
+    datos = Interesado.objects.all()
     if request.method == 'POST':
         formulario = InteresadoForm(request.POST)
         resolucion = Resolucion.objects.get(pk=id_resolucion)
@@ -78,7 +79,7 @@ def nuevo_interesado(request, id_resolucion):
             return HttpResponseRedirect(redireccion)
     else:
         formulario = InteresadoForm()
-    return render_to_response('nuevo_interesado.html',{'form':formulario},context_instance=RequestContext(request))
+    return render_to_response('nuevo_interesado.html',{'form':formulario, 'interesados':datos, 'id':id_resolucion},context_instance=RequestContext(request))
 
 @login_required(login_url=login_url_variable)
 def quitar_interesado(request, id_resolucion):
@@ -208,3 +209,11 @@ def editar_interesado(request, id_interesado):
     else:
         formulario = EditarInteresadoForm(instance=dato)
     return render_to_response('editar_interesado.html',{'form':formulario, 'id':dato.pk}, context_instance=RequestContext(request))
+
+def categorias(request):
+    datos = Categoria.objects.all()
+    return render_to_response('categorias.html', {'categorias':datos}, context_instance=RequestContext(request))
+
+def nueva_categoria(request):
+    form = CategoriaForm()
+    return render_to_response('nueva_categoria.html', {'form':form}, context_instance=RequestContext(request))

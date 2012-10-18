@@ -1,4 +1,9 @@
+{% extends 'base.html' %}
+{% block title_html %} Remover interesados {% endblock title_html %}
+{% block encabezado %} Remover interesados {% endblock encabezado %}
+{% block contenido %}
 {% for persona in resolucion.interesado.all %}
 	<li>{{ persona }} <a href='confirmar/{{persona.pk}}'>Quitar</a></li>
 {% endfor %}
 <p><a href="/resolucion/{{resolucion.id}}">Volver</a></p>
+{% endblock contenido %}

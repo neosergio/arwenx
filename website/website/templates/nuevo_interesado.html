@@ -1,4 +1,10 @@
+{% extends 'base.html' %}
+{% block title_html %} Nuevo interesado {% endblock title_html %}
+{% block encabezado %} Nuevo Interesado {% endblock encabezado %}
+{% block contenido %}
 <form method='post'>{% csrf_token %}
 {{form}}
-<p><input type='submit' value='enviar'>
+<datalist id='lista_interesados'> {% for interesado in interesados %} <option value="{{ interesado }}"> {% endfor %} </datalist>
+<input type='submit' value='Registrar'><a href="/resolucion/{{ id }}">Cancelar</a>
 </form>
+{% endblock contenido %}

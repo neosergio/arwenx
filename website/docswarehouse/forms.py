@@ -4,7 +4,7 @@ from django.forms import ModelForm
 from django import forms
 
 class InteresadoForm(forms.Form):
-    nombre = forms.CharField(label='Nombre')
+    nombre = forms.CharField(label='Nombre', widget=forms.TextInput(attrs={'placeholder':'Escribe el apellidos y nombre', 'list':'lista_interesados'}))
 
 class EditarInteresadoForm(ModelForm):
     class Meta:
@@ -14,6 +14,11 @@ class EditarInteresadoForm(ModelForm):
 class InstanciaForm(ModelForm):
     class Meta:
         model = Instancia
+        exclude = ('registro')
+
+class CategoriaForm(ModelForm):
+    class Meta:
+        model = Categoria
         exclude = ('registro')
 
 class ResolucionForm(ModelForm):

@@ -1,3 +1,7 @@
+{% extends 'base.html' %}
+{% block title_html %} Detalle de resoluciones {% endblock title_html %}
+{% block encabezado %} {{resolucion.codigo_resolucion}} {% endblock encabezado %}
+{% block contenido %}
 <ul>
 	<li>{{resolucion.codigo_resolucion}}</li>
 	<li>{{resolucion.fecha_emision}}</li>
@@ -18,3 +22,4 @@
 <p><a href='agregar/interesado'>Agregar<span>Interesados</span></a></p>
 <p><a href='quitar/interesado'>Quitar<span>Interesados</span></a></p>
 <p><a href='/resoluciones'>Lista de resoluciones</span></a></p>
+{% endblock contenido %}

@@ -1,3 +1,7 @@
+{% extends 'base.html' %}
+{% block title_html %} Resoluciones {% endblock title_html %}
+{% block encabezado %} Lista de resoluciones {% endblock encabezado %}
+{% block contenido %}
 <div class="pagination">
     <span class="step-links">
         <a href="?page= 1">Primera</a>
@@ -46,3 +50,4 @@
         <a href="?page={{ resoluciones.paginator.num_pages }}">Última</a>
     </span>
 </div>
+{% endblock contenido %}

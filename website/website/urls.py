@@ -19,4 +19,6 @@ urlpatterns = patterns('',
 	url(r'^interesados/$', 'docswarehouse.views.interesados'),
 	url(r'^interesados/editar/(?P<id_interesado>\d+)/$', 'docswarehouse.views.editar_interesado'),
 	url(r'^interesados/nuevo/$', 'docswarehouse.views.nuevo_interesado'),
+	url(r'^categorias/$', 'docswarehouse.views.categorias'),
+	url(r'^categorias/nueva$', 'docswarehouse.views.nueva_categoria'),
 )
