@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block encabezado %} Editar resolución {% endblock encabezado %}
+{% block contenido %}
+<form method='post'>{% csrf_token %}
+{{form}}
+<p><input type='submit' value='Confirmar'>
+<a href="/resolucion/{{ id }}">Cancelar</a>
+</form>
+{% endblock contenido %}

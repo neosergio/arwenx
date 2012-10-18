@@ -106,6 +106,21 @@ def resoluciones(request):
     return render_to_response('resoluciones.html',{'resoluciones':resoluciones},context_instance=RequestContext(request))
 
 @login_required(login_url=login_url_variable)
+def editar_resolucion(request, id_resolucion):
+    if request.method == 'POST':
+        formulario = ResolucionForm(request.POST)
+        if formulario.is_valid():
+            resolucion_previo = formulario.save(commit=False)
+            resolucion_previo.registro = request.user
+            resolucion_previo.save()
+            redireccion = "/resolucion/%i" % (resolucion_previo.id)
+            return HttpResponseRedirect(redireccion)
+    else:
+        dato = get_object_or_404(Resolucion, pk=id_resolucion)
+        formulario = ResolucionForm(instance=dato)
+    return render_to_response('editar_resolucion.html',{'form':formulario, 'id':dato.pk}, context_instance=RequestContext(request))
+
+@login_required(login_url=login_url_variable)
 def buscar_resolucion(request):
     instancias = Instancia.objects.all()
     categorias = Categoria.objects.all()
@@ -166,10 +181,6 @@ def nueva_instancia(request):
             instancia_previo.save()
             return HttpResponseRedirect('/')
     else:
-        instancias = Instancia.objects.all()
-        categorias = Categoria.objects.all()
-        facultades = Facultad.objects.all()
-        interesados = Interesado.objects.all()
         formulario = InstanciaForm()
     return render_to_response('nueva_instancia.html',{'form':formulario},context_instance=RequestContext(request))
 

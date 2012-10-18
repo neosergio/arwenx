@@ -1,4 +1,21 @@
-<p><a href='/buscar'>Busqueda personalizada</a></p>
+<div class="pagination">
+    <span class="step-links">
+        <a href="?page= 1">Primera</a>
+        {% if resoluciones.has_previous %}
+            <a href="?page={{ resoluciones.previous_page_number }}">Previo</a>
+        {% endif %}
+
+        <span class="current">
+            Página {{ resoluciones.number }} de {{ resoluciones.paginator.num_pages }}.
+        </span>
+
+        {% if resoluciones.has_next %}
+            <a href="?page={{ resoluciones.next_page_number }}">Siguiente</a>
+        {% endif %}
+        <a href="?page={{ resoluciones.paginator.num_pages }}">Última</a>
+        <a href='/resoluciones/nueva'>Nueva resolución</span></a>
+    </span>
+</div>
 <table>
 	<tr><th>Código de resolución</th><th>Asunto</th><th>Fecha de emisión</th>
 {% for resolucion in resoluciones %}
@@ -14,6 +31,7 @@
 </table>
 <div class="pagination">
     <span class="step-links">
+        <a href="?page= 1">Primera</a>
         {% if resoluciones.has_previous %}
             <a href="?page={{ resoluciones.previous_page_number }}">Previo</a>
         {% endif %}
@@ -25,5 +43,6 @@
         {% if resoluciones.has_next %}
             <a href="?page={{ resoluciones.next_page_number }}">Siguiente</a>
         {% endif %}
+        <a href="?page={{ resoluciones.paginator.num_pages }}">Última</a>
     </span>
 </div>
