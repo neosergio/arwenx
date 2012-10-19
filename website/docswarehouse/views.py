@@ -30,9 +30,9 @@ def ingresar(request):
                     login(request, acceso)
                     return HttpResponseRedirect('/')
                 else:
-                    return render_to_response('no_activo.html')
+                    return render_to_response('no_activo.html', context_instance=RequestContext(request))
             else:
-                return render_to_response('no_usuario.html')
+                return render_to_response('no_usuario.html', context_instance=RequestContext(request))
     else:
         form = AuthenticationForm(auto_id=True)
     return render_to_response('ingresar.html',{'form':form}, context_instance=RequestContext(request))

@@ -1,1 +1,10 @@
-<h1>El usuario y password no coinciden</h1>
+{% extends 'base.html' %}
+{% block title_html %} Usuario y password no coinciden {% endblock title_html %}
+{% block contenido %}
+<div class="span12">
+    <div class="well">
+        <h1>El usuario y password no coinciden. Revise bien las credenciales que se le otorgaron.</h1>     
+        <p>En caso de duda contactarse con <a href="http://ayudaf1.com">Ayudaf1.com</a> </p>
+    </div>
+</div>
+{% endblock %}
