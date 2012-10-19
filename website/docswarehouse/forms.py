@@ -4,7 +4,7 @@ from django.forms import ModelForm
 from django import forms
 
 class InteresadoForm(forms.Form):
-    nombre = forms.CharField(label='Nombre', widget=forms.TextInput(attrs={'placeholder':'Escribe el apellidos y nombre', 'list':'lista_interesados'}))
+    nombre = forms.CharField(label='Nombre', widget=forms.TextInput(attrs={'placeholder':'APELLIDOS Y NOMBRES', 'list':'lista_interesados'}))
 
 class EditarInteresadoForm(ModelForm):
     class Meta:

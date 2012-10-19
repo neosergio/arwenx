@@ -1,25 +1,29 @@
 {% extends 'base.html' %}
-{% block title_html %} Detalle de resoluciones {% endblock title_html %}
-{% block encabezado %} {{resolucion.codigo_resolucion}} {% endblock encabezado %}
+{% block title_html %} Detalle de resolución {{resolucion.codigo_resolucion}} {% endblock title_html %}
+{% block encabezado %} Resolución: {{resolucion.codigo_resolucion}} <a class='btn btn-small btn-info' href='/resoluciones'><i class="icon-white icon-list-alt"></i> Lista de resoluciones</a>{% endblock encabezado %}
 {% block contenido %}
-<ul>
-	<li>{{resolucion.codigo_resolucion}}</li>
-	<li>{{resolucion.fecha_emision}}</li>
-	<li>{{resolucion.asunto}}</li>
-	<li>{{resolucion.instancia}}</li>
-	<li>{{resolucion.categoria}}</li>
-	<li>{{resolucion.facultad}}</li>
-</ul>
-<p>Interesados: </p>
-<ul>
-	{% for persona in resolucion.interesado.all %}
-	<li>{{ persona }}</li>
-	{% empty %}
-	<li>La resolución aún no tiene interesados registrados.</li>
-	{% endfor %}
-</ul>
-<p><a href='editar'>Editar resolución</span></a></p>
-<p><a href='agregar/interesado'>Agregar<span>Interesados</span></a></p>
-<p><a href='quitar/interesado'>Quitar<span>Interesados</span></a></p>
-<p><a href='/resoluciones'>Lista de resoluciones</span></a></p>
+<div class="span6">
+    <h2>Detalles: </h2>
+    <ul class='detalle_resolucion'>
+        <li><strong>Fecha:</strong> {{resolucion.fecha_emision}}</li>
+        <li><strong>Asunto:</strong> {{resolucion.asunto}}</li>
+        <li><strong>Instancia:</strong> {{resolucion.instancia}}</li>
+        <li><strong>Categoria:</strong> {{resolucion.categoria}}</li>
+        <li><strong>Facultad: </strong> {{resolucion.facultad|default:'No registrada'}}</li>
+    </ul>
+    <a class='btn btn-small btn-inverse' href='editar'><i class="icon-white icon-pencil"></i> Editar resolución</a>
+</div>
+
+<div class="span6">
+    <h2>Interesados: </h2>
+    <ul>
+        {% for persona in resolucion.interesado.all %}
+        <li>{{ persona }}</li>
+        {% empty %}
+        <li>La resolución aún no tiene interesados registrados.</li>
+        {% endfor %}
+    </ul>
+    <a class='btn btn-small btn-success' href='agregar/interesado'><i class="icon-white icon-plus"></i> Agregar Interesados</a>
+    <a class='btn btn-small btn-danger' href='quitar/interesado'><i class="icon-white icon-minus"></i> Quitar Interesados</a>
+</div>   
 {% endblock contenido %}

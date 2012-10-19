@@ -5,21 +5,23 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
+            <a class="btn btn-large btn-primary" href='/resoluciones/nueva'><i class="icon-white icon-plus"></i> Nueva resolución</a>
+        </div>  
+        <div class="span12">
             <div class="pagination">
-                <span>Página {{ resoluciones.number }} de {{ resoluciones.paginator.num_pages }}</span>
                 <ul>
                     <li><a href="?page= 1">Primera</a></li>
-                    {% if resoluciones.has_previous %}
-                    <li><a href="?page={{ resoluciones.previous_page_number }}">Previo</a></li>
-                    {% endif %}
-                    {% if resoluciones.has_next %}
-                    <li><a href="?page={{ resoluciones.next_page_number }}">Siguiente</a></li>
-                    {% endif %}
+                    {# if resoluciones.has_previous #}
+                    <li><a href="?page={{ resoluciones.previous_page_number }}"><<</a></li>
+                    {# endif #}
+                    {# if resoluciones.has_next #}
+                    <li class="active"><a>Página {{ resoluciones.number }} de {{ resoluciones.paginator.num_pages }}</a> </li>
+                    <li><a href="?page={{ resoluciones.next_page_number }}">>></a></li>
+                    {# endif #}
                     <li><a href="?page={{ resoluciones.paginator.num_pages }}">Última</a></li>
                 </ul>
-                <span><a href='/resoluciones/nueva'>Nueva resolución</a></span>
             </div>
-        </div>  
+        </div>
         <div class="span12">
             <table class='table table-condensed table-hover'>
                 <tr><th class='codigo_resolucion'>Código de resolución</th><th>Asunto</th><th class='fecha_emision'>Fecha de emisión</th><th>&nbsp;</th>
@@ -35,25 +37,21 @@
                 {% endfor %}
             </table>
         </div>
+        <div class="span12">
+            <div class="pagination">
+                <ul>
+                    <li><a href="?page= 1">Primera</a></li>
+                    {# if resoluciones.has_previous #}
+                    <li><a href="?page={{ resoluciones.previous_page_number }}"><<</a></li>
+                    {# endif #}
+                    {# if resoluciones.has_next #}
+                    <li class="active"><a>Página {{ resoluciones.number }} de {{ resoluciones.paginator.num_pages }}</a> </li>
+                    <li><a href="?page={{ resoluciones.next_page_number }}">>></a></li>
+                    {# endif #}
+                    <li><a href="?page={{ resoluciones.paginator.num_pages }}">Última</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
-</div>
-
-
-<div class="pagination">
-    <span class="step-links">
-        <a href="?page= 1">Primera</a>
-        {% if resoluciones.has_previous %}
-            <a href="?page={{ resoluciones.previous_page_number }}">Previo</a>
-        {% endif %}
-
-        <span class="current">
-            Página {{ resoluciones.number }} de {{ resoluciones.paginator.num_pages }}.
-        </span>
-
-        {% if resoluciones.has_next %}
-            <a href="?page={{ resoluciones.next_page_number }}">Siguiente</a>
-        {% endif %}
-        <a href="?page={{ resoluciones.paginator.num_pages }}">Última</a>
-    </span>
 </div>
 {% endblock contenido %}

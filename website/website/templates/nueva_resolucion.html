@@ -1,8 +1,29 @@
 {% extends "base.html" %}
+{% block title_html %} Agregar una nueva resolución {% endblock title_html %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/flick/jquery-ui-1.9.0.custom.min.css" media="all">
+{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.9.0.custom.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/jquery.ui.datepicker-es.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $("#id_fecha_emision").datepicker( {changeMonth:true, changeYear:true, numberOfMonths:2}, $.datepicker.regional["es"], "option", "dateFormat", "dd/mm/yy" );
+            $("#id_fecha_emision").datepicker( "option", "showAnim", "clip" );
+        });
+    </script>
+{% endblock js %}
 {% block encabezado %} Agregar una nueva resolución {% endblock encabezado %}
 {% block contenido %}
-<form method='post'>{% csrf_token %}
-{{form}}
-<p><input type='submit' value='enviar'>
-</form>	
+<div class="span12 well">
+    <form class='form-horizontal formulario_gestion' method='post'>{% csrf_token %}
+        <div class="control-group">
+            {{form}}
+            <p>
+                <input class='btn btn-success' type='submit' value='Enviar'>
+                <a class='btn btn-danger' href="/resoluciones">Cancelar</a>
+            </p>
+        </div>
+    </form> 
+</div>
 {% endblock contenido %}

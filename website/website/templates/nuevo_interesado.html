@@ -2,9 +2,12 @@
 {% block title_html %} Nuevo interesado {% endblock title_html %}
 {% block encabezado %} Nuevo Interesado {% endblock encabezado %}
 {% block contenido %}
-<form method='post'>{% csrf_token %}
-{{form}}
-<datalist id='lista_interesados'> {% for interesado in interesados %} <option value="{{ interesado }}"> {% endfor %} </datalist>
-<input type='submit' value='Registrar'><a href="/resolucion/{{ id }}">Cancelar</a>
-</form>
+<div class="span12">
+    <form class='form-inline formulario_gestion' method='post'>{% csrf_token %}
+        {{form}}
+        <datalist id='lista_interesados'> {% for interesado in interesados %} <option value="{{ interesado }}"> {% endfor %} </datalist>
+        <input class='btn btn-success' type='submit' value='Registrar'>
+        <a class='btn btn-danger' href="/resolucion/{{ id }}">Cancelar</a>
+    </form>
+</div>
 {% endblock contenido %}
