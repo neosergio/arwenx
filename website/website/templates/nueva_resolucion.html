@@ -7,10 +7,9 @@
     <script type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.9.0.custom.min.js"></script>
     <script type="text/javascript" src="{{STATIC_URL}}js/jquery.ui.datepicker-es.js"></script>
     <script type="text/javascript">
-        $(function(){
-            $("#id_fecha_emision").datepicker( {changeMonth:true, changeYear:true, numberOfMonths:2}, $.datepicker.regional["es"], "option", "dateFormat", "dd/mm/yy" );
-            $("#id_fecha_emision").datepicker( "option", "showAnim", "clip" );
-        });
+    $(function(){
+        $('.menu_nueva').attr('class', 'menu_nueva active');
+    });
     </script>
 {% endblock js %}
 {% block encabezado %} Agregar una nueva resolución {% endblock encabezado %}

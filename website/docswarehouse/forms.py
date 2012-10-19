@@ -31,15 +31,26 @@ class ResolucionForm(ModelForm):
         model = Resolucion
         exclude = ('registro', 'interesado')
 
-class BuscarForm(forms.Form):
+class BuscarFormPlaceholder(forms.Form):
     codigo = forms.CharField(
         label='Código de resolución', 
         widget=forms.TextInput(attrs={'placeholder':'ej. 01264-R-2012'}),
         required=False)
     fecha = forms.DateField(label='Fecha de emisión', required=False)
-    asunto = forms.CharField(widget=forms.Textarea(attrs={'placeholder':'Algún fragmento del asunto'}), required=False)
+    asunto = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Algún fragmento del asunto'}), required=False)
     instancia = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Escribe la instancia', 'list':'lista_instancias'}), required=False)
     categoria = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Escribe la categoría', 'list':'lista_categorias'}), required=False)
     facultad = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Escribe la facultad', 'list':'lista_facultades'}), required=False)
     interesado = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Escribe el nombre del interesado', 'list':'lista_interesados'}),required=False)
 
+class BuscarForm(forms.Form):
+    codigo = forms.CharField(
+        label='Código de resolución', 
+        widget=forms.TextInput(),
+        required=False)
+    fecha = forms.DateField(label='Fecha de emisión', required=False)
+    asunto = forms.CharField(label='Asunto', required=False)
+    instancia = forms.CharField(widget=forms.TextInput(attrs={ 'list':'lista_instancias'}), required=False)
+    categoria = forms.CharField(widget=forms.TextInput(attrs={ 'list':'lista_categorias'}), required=False)
+    facultad = forms.CharField(widget=forms.TextInput(attrs={ 'list':'lista_facultades'}), required=False)
+    interesado = forms.CharField(widget=forms.TextInput(attrs={'list':'lista_interesados'}),required=False)

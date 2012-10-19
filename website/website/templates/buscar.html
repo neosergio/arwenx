@@ -1,28 +1,43 @@
 {% extends 'base.html' %}
 {% block title_html %} Busqueda de resoluciones {% endblock title_html %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/flick/jquery-ui-1.9.0.custom.min.css" media="all">
+{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.9.0.custom.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/jquery.ui.datepicker-es.js"></script>
+    <script type="text/javascript">
+ $(function(){
+        $('.menu_buscar').attr('class', 'menu_buscar active');
+    });
+    </script>
+{% endblock js %}
 {% block encabezado %} Buscar resoluciones {% endblock encabezado %}
 {% block contenido %}
-<form action="" method="post">{% csrf_token %}
-{{ form }}
-<datalist id='lista_instancias'> {% for instancia in instancias %} <option value="{{ instancia }}"> {% endfor %} </datalist>
-<datalist id='lista_categorias'> {% for categoria in categorias %} <option value="{{ categoria }}"> {% endfor %} </datalist>
-<datalist id='lista_facultades'> {% for facultad in facultades %} <option value="{{ facultad }}"> {% endfor %} </datalist>
-<datalist id='lista_interesados'> {% for interesado in interesados %} <option value="{{ interesado }}"> {% endfor %} </datalist>
-<input type="submit" value="Consultar">
-</form>
-
-<table>
-	<tr><th>#</th><th>Código de resolución</th><th>Asunto</th><th>Fecha de emisión</th>
-{% for resolucion in resoluciones %}
-	<tr>
-		<td>{{ forloop.counter }}</td>
-		<td>{{ resolucion.codigo_resolucion }}</td>
-		<td>{{ resolucion.asunto }}</td> 
-		<td>{{ resolucion.fecha_emision }}</td>
-		<td><a href='/resolucion/{{ resolucion.id }}'>Ver detalles</a></td>
-	</tr>
-{% empty %}
-	<tr><th colspan=3>No hay resoluciones registradas que coincidan con la busqueda.</th></tr>
-{% endfor %}
-</table>
+<div class="span12 well">
+    <form class="form-inline formulario_gestion" method="post">{% csrf_token %}
+        {{ form }}
+        <datalist id='lista_instancias'> {% for instancia in instancias %} <option value="{{ instancia }}"> {% endfor %} </datalist>
+        <datalist id='lista_categorias'> {% for categoria in categorias %} <option value="{{ categoria }}"> {% endfor %} </datalist>
+        <datalist id='lista_facultades'> {% for facultad in facultades %} <option value="{{ facultad }}"> {% endfor %} </datalist>
+        <datalist id='lista_interesados'> {% for interesado in interesados %} <option value="{{ interesado }}"> {% endfor %} </datalist>
+        <input class="btn btn-primary" type="submit" value="Consultar">
+    </form>
+</div>
+<div class="span12">
+    <table class='table table-hover'>
+        <tr><th>#</th><th class="codigo_resolucion">Código de resolución</th><th>Asunto</th><th class="fecha_emision">Fecha de emisión</th>
+        {% for resolucion in resoluciones %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td class="codigo_resolucion">{{ resolucion.codigo_resolucion }}</td>
+            <td>{{ resolucion.asunto }}</td> 
+            <td class="fecha_emision">{{ resolucion.fecha_emision }}</td>
+            <td class='ver_detalles'><a class='btn btn-mini btn-info' href='/resolucion/{{ resolucion.id }}'><i class="icon-white icon-comment"></i> Ver detalles</a></td>
+        </tr>
+        {% empty %}
+        <tr><th colspan="4">No hay resoluciones registradas que coincidan con la busqueda.</th></tr>
+        {% endfor %}
+    </table>
+</div>
 {% endblock contenido %}

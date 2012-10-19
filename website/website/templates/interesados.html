@@ -1,24 +1,33 @@
 {% extends 'base.html' %}
 {% block title_html %} Lista de interesados {% endblock title_html %}
+{% block js %}
+ <script type="text/javascript">
+ $(function(){
+        $('.menu_editar').attr('class', 'menu_editar active');
+    });
+    </script>
+{% endblock js %}
 {% block encabezado %} Lista de interesados {% endblock encabezado %}
 {% block contenido %}
-<table>
-    <thead>
-        <tr><th>#</th><th>Nombre</th><th></th></tr>
-    </thead>
-    <tbody>
-        {% for interesado in interesados  %}
-        <tr>
-            <td>{{ forloop.counter }}</td>
-            <td>{{ interesado.nombre }}</td>
-            <td> <a href="editar/{{ interesado.pk }}">Editar</a> </td>
-        </tr>
-        {% empty %}
-            <tr><td colspan='3'>No hay interesados registrados</td></tr>
-        {% endfor %}
-    </tbody>
-    <tfoot>
-        <tr><th>#</th><th>Nombre</th><th></th></tr>
-    </tfoot>
-</table>
+<div class="span12">
+    <table class="table table-hover">
+        <thead>
+            <tr><th>#</th><th>Nombre</th><th></th></tr>
+        </thead>
+        <tbody>
+            {% for interesado in interesados  %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ interesado.nombre }}</td>
+                <td class="editar"><a class="btn btn-mini btn-info" href="editar/{{ interesado.pk }}"><i class="icon-white icon-pencil"></i> Editar</a> </td>
+            </tr>
+            {% empty %}
+                <tr><td colspan='3'>No hay interesados registrados</td></tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr><th>#</th><th>Nombre</th><th></th></tr>
+        </tfoot>
+    </table>
+</div>
 {% endblock contenido %}

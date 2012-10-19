@@ -1,13 +1,24 @@
 {% extends 'base.html' %}
 {% block title_html %} Categorias {% endblock title_html %}
+{% block js %}
+ <script type="text/javascript">
+ $(function(){
+        $('.menu_gestionar').attr('class', 'dropdown menu_gestionar active');
+        $('.menu_gestionar_categorias').attr('class', 'menu_gestionar_categorias active');
+    });
+    </script>
+{% endblock js %}
 {% block encabezado %} Lista de Categorias {% endblock encabezado %}
 {% block contenido %}
-<p><a href="nueva">Nueva categoria</a></p>
-    <table>
+<div class="span12">
+    <p><a class="btn btn-large btn-primary" href="nueva"><i class="icon-plus icon-white"></i> Nueva categoria</a></p>
+    <table class="table table-hover">
     {% for categoria in categorias %}
-        <tr><td>{{ forloop.counter }}</td><td>{{ categoria.nombre }}</td><td><a href="{{ categoria.id }}/editar">Editar</a></td></tr>
+        <tr><td>{{ forloop.counter }}</td><td>{{ categoria.nombre }}</td><td class="editar"><a class="btn btn-mini btn-info" href="{{ categoria.id }}/editar"><i class="icon-white icon-pencil"></i> Editar</a></td></tr>
     {% empty %}
-         <tr><td>No hay categorias registradas</td></tr>
+         <tr><td colspan="3">No hay categorias registradas</td></tr>
     {% endfor %}
     </table>
+    
+</div>
 {% endblock contenido %}

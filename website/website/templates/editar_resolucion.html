@@ -1,9 +1,23 @@
 {% extends "base.html" %}
+{% block title_html %} Agregar una nueva resolución {% endblock title_html %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/flick/jquery-ui-1.9.0.custom.min.css" media="all">
+{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.9.0.custom.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/jquery.ui.datepicker-es.js"></script>
+{% endblock js %}
 {% block encabezado %} Editar resolución {% endblock encabezado %}
 {% block contenido %}
-<form method='post'>{% csrf_token %}
-{{form}}
-<input type='submit' value='Confirmar'>
-<a href="/resolucion/{{ id }}">Cancelar</a>
-</form>
+<div class="span12 well">
+    <form class='form-horizontal formulario_gestion' method='post'>{% csrf_token %}
+        <div class="control-group">
+            {{form}}            
+            <p>
+                <input class='btn btn-success' type='submit' value='Confirmar'>
+                <a class='btn btn-danger' href="/resolucion/{{ id }}">Cancelar</a>
+            </p>
+        </div>
+    </form>
+</div>
 {% endblock contenido %}
