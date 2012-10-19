@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block title_html %} Sistema de registro de resoluciones {% endblock title_html %}
-{% block encabezado %} Sistema de registro de resoluciones {% endblock encabezado %}
 {% block contenido %}
-    <div>
-        <a href="/resoluciones">Resoluciones</span></a>
-        <a href='/buscar'>Buscar</a>
-        <a href="/interesados">Editar Interesados</a>
-        <a href="/categorias">Gestionar Categorias</a>
-        <a href="/facultades">Gestionar Facultades</a>
+    <div class="hero-unit">
+        <h1>Sistema de registro de resoluciones</h1>
+        <p>Permite registrar y buscar resoluciones de secretaría general de la Universidad Nacional del Centro del Perú.</p>
+        <p>
+            <a class='btn btn-large btn-primary' href="/resoluciones"><i class="icon-plus icon-white"></i> Nuevas Resoluciones</span></a>
+            <a class='btn btn-large btn-success' href='/buscar'><i class="icon-search icon-white"></i> Buscar Resoluciones</a>
+        </p>
     </div>
 {% endblock contenido %}
