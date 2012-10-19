@@ -21,6 +21,11 @@ class CategoriaForm(ModelForm):
         model = Categoria
         exclude = ('registro')
 
+class FacultadForm(ModelForm):
+    class Meta:
+        model = Facultad
+        exclude = ('registro')
+
 class ResolucionForm(ModelForm):
     class Meta:
         model = Resolucion

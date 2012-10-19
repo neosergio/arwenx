@@ -21,4 +21,8 @@ urlpatterns = patterns('',
 	url(r'^interesados/nuevo/$', 'docswarehouse.views.nuevo_interesado'),
 	url(r'^categorias/$', 'docswarehouse.views.categorias'),
 	url(r'^categorias/nueva$', 'docswarehouse.views.nueva_categoria'),
+	url(r'^categorias/(?P<id_categoria>\d+)/editar$', 'docswarehouse.views.editar_categoria'),
+	url(r'^facultades/$', 'docswarehouse.views.facultades'),
+	url(r'^facultades/nueva$', 'docswarehouse.views.nueva_facultad'),
+	url(r'^facultades/(?P<id_facultad>\d+)/editar$', 'docswarehouse.views.editar_facultad'),
 )

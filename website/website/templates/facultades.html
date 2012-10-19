@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title_html %} Facultades {% endblock title_html %}
+{% block encabezado %} Lista de Facultades {% endblock encabezado %}
+{% block contenido %}
+<p><a href="nueva">Nueva facultad</a></p>
+    <table>
+    {% for facultad in facultades %}
+        <tr><td>{{ forloop.counter }}</td><td>{{ facultad.nombre }}</td><td><a href="{{ facultad.id }}/editar">Editar</a></td></tr>
+    {% empty %}
+         <tr><td>No hay facultades registradas</td></tr>
+    {% endfor %}
+    </table>
+{% endblock contenido %}

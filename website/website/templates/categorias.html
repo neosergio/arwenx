@@ -5,7 +5,7 @@
 <p><a href="nueva">Nueva categoria</a></p>
     <table>
     {% for categoria in categorias %}
-        <tr><td>{{ forloop.counter }}</td><td>{{ categoria.nombre }}</td><td><a href="editar/{{ categoria.id }}">Editar</a></td></tr>
+        <tr><td>{{ forloop.counter }}</td><td>{{ categoria.nombre }}</td><td><a href="{{ categoria.id }}/editar">Editar</a></td></tr>
     {% empty %}
          <tr><td>No hay categorias registradas</td></tr>
     {% endfor %}

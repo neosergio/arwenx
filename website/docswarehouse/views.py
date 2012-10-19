@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 from docswarehouse.models import Instancia, Resolucion, Interesado, Categoria, Facultad
-from docswarehouse.forms import InstanciaForm, ResolucionForm, InteresadoForm, BuscarForm, EditarInteresadoForm, CategoriaForm
+from docswarehouse.forms import InstanciaForm, ResolucionForm, InteresadoForm, BuscarForm, EditarInteresadoForm, CategoriaForm, FacultadForm
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
@@ -210,10 +210,66 @@ def editar_interesado(request, id_interesado):
         formulario = EditarInteresadoForm(instance=dato)
     return render_to_response('editar_interesado.html',{'form':formulario, 'id':dato.pk}, context_instance=RequestContext(request))
 
+@login_required(login_url=login_url_variable)
 def categorias(request):
     datos = Categoria.objects.all()
     return render_to_response('categorias.html', {'categorias':datos}, context_instance=RequestContext(request))
 
+@login_required(login_url=login_url_variable)
 def nueva_categoria(request):
-    form = CategoriaForm()
+    if request.method == 'POST':
+        formulario = CategoriaForm(request.POST)
+        if formulario.is_valid():
+            categoria_previo = formulario.save(commit=False)
+            categoria_previo.registro = request.user
+            categoria_previo.save()
+            return HttpResponseRedirect('/categorias')
+    else:
+        form = CategoriaForm()
     return render_to_response('nueva_categoria.html', {'form':form}, context_instance=RequestContext(request))
+
+@login_required(login_url=login_url_variable)
+def editar_categoria(request, id_categoria):
+    dato = Categoria.objects.get(pk=id_categoria)
+    if request.method == 'POST':
+        formulario = CategoriaForm(request.POST, instance=dato)
+        if formulario.is_valid():
+            categoria_previo = formulario.save(commit=False)
+            categoria_previo.registro = request.user
+            categoria_previo.save()
+            return HttpResponseRedirect('/categorias')
+    else:
+        form = CategoriaForm(instance=dato)
+    return render_to_response('nueva_categoria.html', {'form':form}, context_instance=RequestContext(request))    
+
+@login_required(login_url=login_url_variable)
+def facultades(request):
+    datos = Facultad.objects.all()
+    return render_to_response('facultades.html',{'facultades':datos}, context_instance=RequestContext(request))
+
+@login_required(login_url=login_url_variable)
+def nueva_facultad(request):
+    if request.method == 'POST':
+        formulario = FacultadForm(request.POST)
+        if formulario.is_valid():
+            facultad_previo = formulario.save(commit=False)
+            facultad_previo.registro = request.user
+            facultad_previo.save()
+            return HttpResponseRedirect('/facultades')
+    else:
+        form = FacultadForm()
+    return render_to_response('nueva_facultad.html', {'form':form}, context_instance=RequestContext(request))    
+
+@login_required(login_url=login_url_variable)
+def editar_facultad(request, id_facultad):
+    dato = Facultad.objects.get(pk=id_facultad)
+    if request.method == 'POST':
+        formulario = FacultadForm(request.POST, instance=dato)
+        if formulario.is_valid():
+            facultad_previo = formulario.save(commit=False)
+            facultad_previo.registro = request.user
+            facultad_previo.save()
+            return HttpResponseRedirect('/facultades')
+    else:
+        form = FacultadForm(instance=dato)
+    return render_to_response('nueva_facultad.html', {'form':form}, context_instance=RequestContext(request))    

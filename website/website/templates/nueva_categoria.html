@@ -1,4 +1,9 @@
+{% extends 'base.html' %}
+{% block title_html %} Nueva categoria {% endblock title_html %}
+{% block encabezado %} Nueva categoria {% endblock encabezado %}
+{% block contenido %}
 <form method='post'>{% csrf_token %}
 {{form}}
-<p><input type='submit' value='enviar'>
+<input type='submit' value='Registrar'><a href="/categorias">Cancelar</a>
 </form>
+{% endblock %}

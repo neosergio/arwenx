@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title_html %} Nueva facultad {% endblock title_html %}
+{% block encabezado %} Nueva facultad {% endblock encabezado %}
+{% block contenido %}
+<form method='post'>{% csrf_token %}
+{{form}}
+<input type='submit' value='Registrar'><a href="/facultades">Cancelar</a>
+</form>
+{% endblock %}
