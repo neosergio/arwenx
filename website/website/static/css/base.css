@@ -1,7 +1,9 @@
 /* Custom CSS for the system */
 .brand-img { width: 3%;}
+span.usuario { font-weight: bold; margin-top: 10px; }
 .hero-unit { text-align: center; }
 .table th {text-align: center;}
 table .codigo_resolucion, table .fecha_emision { width: 15%; text-align: center;}
 table .ver_detalles { width: 10%; }
 footer {text-align: center;}
+form.ingreso { text-align: center; }

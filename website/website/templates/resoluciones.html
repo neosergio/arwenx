@@ -6,25 +6,23 @@
     <div class="row-fluid">
         <div class="span12">
             <div class="pagination">
-                <span class="step-links">
-                    <a href="?page= 1">Primera</a>
+                <span>Página {{ resoluciones.number }} de {{ resoluciones.paginator.num_pages }}</span>
+                <ul>
+                    <li><a href="?page= 1">Primera</a></li>
                     {% if resoluciones.has_previous %}
-                    <a href="?page={{ resoluciones.previous_page_number }}">Previo</a>
+                    <li><a href="?page={{ resoluciones.previous_page_number }}">Previo</a></li>
                     {% endif %}
-                    <span class="current">
-                    Página {{ resoluciones.number }} de {{ resoluciones.paginator.num_pages }}.
-                    </span>
                     {% if resoluciones.has_next %}
-                    <a href="?page={{ resoluciones.next_page_number }}">Siguiente</a>
+                    <li><a href="?page={{ resoluciones.next_page_number }}">Siguiente</a></li>
                     {% endif %}
-                    <a href="?page={{ resoluciones.paginator.num_pages }}">Última</a>
-                    <a href='/resoluciones/nueva'>Nueva resolución</a>
-                </span>
+                    <li><a href="?page={{ resoluciones.paginator.num_pages }}">Última</a></li>
+                </ul>
+                <span><a href='/resoluciones/nueva'>Nueva resolución</a></span>
             </div>
         </div>  
         <div class="span12">
-            <table class='table table-condensed'>
-                <tr><th class='codigo_resolucion'>Código de resolución</th><th>Asunto</th><th class='fecha_emision'>Fecha de emisión</th>
+            <table class='table table-condensed table-hover'>
+                <tr><th class='codigo_resolucion'>Código de resolución</th><th>Asunto</th><th class='fecha_emision'>Fecha de emisión</th><th>&nbsp;</th>
                 {% for resolucion in resoluciones %}
                 <tr>
                     <td class='codigo_resolucion'>{{ resolucion.codigo_resolucion }}</td>

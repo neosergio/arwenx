@@ -1,4 +1,10 @@
-<form method='post'>{% csrf_token %}
-{{form}}
-<p><input type='submit' value='ingresar'>
+{% extends 'base.html' %}
+{% block title_html %} Sistema de registro de resoluciones {% endblock title_html %}
+{% block contenido %}
+<div class="span12">
+    <form class='well ingreso form-horizontal' method='post'>{% csrf_token %}
+    {{form.as_p}}
+    <p><input class='btn btn-success' type='submit' value='ingresar'></p>
 </form>
+</div>
+{% endblock contenido %}
