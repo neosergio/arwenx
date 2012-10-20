@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
-{% block title_html %} Nueva facultad {% endblock title_html %}
-{% block encabezado %} Nueva facultad {% endblock encabezado %}
+{% block title_html %} Nueva/Editar facultad {% endblock title_html %}
+{% block encabezado %} Nueva/Editar facultad {% endblock encabezado %}
 {% block contenido %}
 <form method='post'>{% csrf_token %}
 {{form}}
-<input type='submit' value='Registrar'><a href="/facultades">Cancelar</a>
+<input  class="btn btn-success"  type='submit' value='Registrar'><a class="btn btn-danger" href="/categorias">Cancelar</a>
 </form>
 {% endblock %}

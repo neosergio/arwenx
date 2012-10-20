@@ -3,7 +3,7 @@
 {% block contenido %}
 <form method='post'>{% csrf_token %}
 {{form}}
-<p><input type='submit' value='Confirmar'>
-<a href="/interesados/">Cancelar</a>
+<p><input class="btn btn-success" type='submit' value='Confirmar'>
+<a class="btn btn-danger" href="/interesados/">Cancelar</a>
 </form>
 {% endblock contenido %}
