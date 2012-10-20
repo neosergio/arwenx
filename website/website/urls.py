@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, include, url, handler404, handler500
 from django.contrib import admin
 
 admin.autodiscover()
@@ -26,3 +26,6 @@ urlpatterns = patterns('',
 	url(r'^facultades/nueva$', 'docswarehouse.views.nueva_facultad'),
 	url(r'^facultades/(?P<id_facultad>\d+)/editar$', 'docswarehouse.views.editar_facultad'),
 )
+
+handler404 = "docswarehouse.views.page404"
+handler500 = "docswarehouse.views.page500"
