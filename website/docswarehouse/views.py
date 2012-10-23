@@ -134,12 +134,12 @@ def buscar_resolucion(request):
         form = BuscarForm(request.POST)
         if form.is_valid():
             codigo_consulta = ~Q(codigo_resolucion = '')
-            fecha_consulta = ~Q(fecha_emision__isnull = True)
-            asunto_consulta = ~Q(asunto = '')
+            fecha_consulta = ~Q(fecha_emision__isnull = True) | ~Q(fecha_emision__isnull = False)
+            asunto_consulta = ~Q(asunto = '') | Q(asunto = '')
             instancia_consulta = ~Q(instancia__isnull = True)
             categoria_consulta = ~Q(categoria__isnull = True)
-            facultad_consulta = ~Q(facultad__isnull = True)
-            interesado_consulta = ~Q(interesado__isnull = True)
+            facultad_consulta = ~Q(facultad__isnull = True) | ~Q(facultad__isnull = False)
+            interesado_consulta = ~Q(interesado__isnull = True) | ~Q(interesado__isnull = False) 
             for k,v in request.POST.items():
                 if k == 'codigo':
                     if v != '':
@@ -158,17 +158,12 @@ def buscar_resolucion(request):
                         categoria_consulta = Q(categoria = get_object_or_404(Categoria, nombre__iexact = form.cleaned_data['categoria']))
                 if k == 'facultad':
                     if v != '':
-                        print v
                         facultad_consulta = Q(facultad = get_object_or_404(Facultad, nombre__iexact = form.cleaned_data['facultad']))
                 if k == 'interesado':
                     if v != '':
-                        print v
                         interesado_consulta = Q(interesado__nombre__icontains = form.cleaned_data['interesado'])
             resoluciones_resultantes = Resolucion.objects.filter(codigo_consulta, fecha_consulta, asunto_consulta, 
                 instancia_consulta, categoria_consulta, facultad_consulta, interesado_consulta)
-            print resoluciones_resultantes
-    else:
-        print 'else'
     return render_to_response('buscar.html',
         {'form':form, 'resoluciones': resoluciones_resultantes, 'instancias':instancias, 'categorias':categorias, 'facultades':facultades, 'interesados':interesados},
         context_instance=RequestContext(request))
