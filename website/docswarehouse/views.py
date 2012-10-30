@@ -123,6 +123,12 @@ def editar_resolucion(request, id_resolucion):
     return render_to_response('editar_resolucion.html',{'form':formulario, 'id':dato.pk}, context_instance=RequestContext(request))
 
 @login_required(login_url=login_url_variable)
+def borrar_resolucion(request, id_resolucion):
+    dato = get_object_or_404(Resolucion, pk=id_resolucion)
+    dato.delete()
+    return HttpResponseRedirect('/buscar')
+
+@login_required(login_url=login_url_variable)
 def buscar_resolucion(request):
     instancias = Instancia.objects.all()
     categorias = Categoria.objects.all()
