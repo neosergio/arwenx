@@ -6,6 +6,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
 	url(r'^$','docswarehouse.views.inicio'),
 	url(r'^ingresar/$','docswarehouse.views.ingresar'),
+	url(r'^usuario/editar/password/$','docswarehouse.views.cambiar_password'),
 	url(r'^salir/$','docswarehouse.views.salir'),
 	url(r'^resoluciones/$','docswarehouse.views.resoluciones'),
 	url(r'^resoluciones/nueva/$','docswarehouse.views.nueva_resolucion'),

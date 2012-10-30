@@ -4,7 +4,7 @@ from docswarehouse.forms import InstanciaForm, ResolucionForm, InteresadoForm, B
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
 from django.db.models import Q
@@ -35,6 +35,17 @@ def ingresar(request):
                 return render_to_response('no_usuario.html', context_instance=RequestContext(request))
     else:
         form = AuthenticationForm(auto_id=True)
+    return render_to_response('ingresar.html',{'form':form}, context_instance=RequestContext(request))
+
+@login_required(login_url=login_url_variable)
+def cambiar_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, auto_id=True, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return render_to_response('confirmado.html', context_instance=RequestContext(request))
+    else:
+        form = PasswordChangeForm(request.user, auto_id=True)
     return render_to_response('ingresar.html',{'form':form}, context_instance=RequestContext(request))
 
 @login_required(login_url=login_url_variable)
